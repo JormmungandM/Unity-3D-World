@@ -12,11 +12,10 @@ public class CameraControl : MonoBehaviour
     private float camAngleY;
     private const float VertSens = 1.0f;
     private const float HorSens = 1.0f;
-    public Vector2 CamMinMax_Y = new Vector2(-40, 40);
 
-    private float zoomMax = 2.0f;
+    private float zoomMax = 1.0f;
     private float zoomMin = 0.1f;
-    private float zoomSens = 2.0f;
+    private float zoomSens = 1.0f;
     private float zoom = 1.0f;
 
     void Start()
