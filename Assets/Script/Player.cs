@@ -66,25 +66,31 @@ public class Player : MonoBehaviour
         {
            _animator.SetInteger("PlayerState", 0);
         }
-        if (Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.UpArrow))  
+        if (Input.GetKey(KeyCode.W))  
         {
            _animator.SetInteger("PlayerState", 1);  
         }
-        if((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && Input.GetKey(KeyCode.LeftShift)){
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        {
            _animator.SetInteger("PlayerState", 2);
         }
-        if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        if(Input.GetKey(KeyCode.S))
         {
            _animator.SetInteger("PlayerState", 3);
         }
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.S ) && Input.GetKey(KeyCode.LeftShift))
         {
-           _animator.SetInteger("PlayerState", 4);
+            _animator.SetInteger("PlayerState", 4);
         }
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)) && Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.A) )
         {
-            _animator.SetInteger("PlayerState", 5);
+           _animator.SetInteger("PlayerState", 5);
         }
+        if (Input.GetKey(KeyCode.D))
+        {
+            _animator.SetInteger("PlayerState", 6);
+        }
+
         //characterController.SimpleMove(moveDirection);
         characterController.Move(moveDirection);
         groundedPlayer = characterController.isGrounded;
@@ -96,7 +102,7 @@ public class Player : MonoBehaviour
         // Changes the height position of the player..
         if (Input.GetKey(KeyCode.Space) && groundedPlayer)
         {
-            _animator.SetInteger("PlayerState", 6);
+            _animator.SetInteger("PlayerState", 7);
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
 
         }
