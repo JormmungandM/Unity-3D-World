@@ -48,26 +48,26 @@ public class DisplayCanvas : MonoBehaviour
         float angle = Vector3.SignedAngle(c, Player.transform.forward, Vector3.up);
         arrowImage.transform.eulerAngles = new Vector3(0, 0, angle);
 
-        if (CoinRenderer.isVisible)
-        {
-            LeftHint.enabled = false;
-            RightHint.enabled = false;
-        }
-        else
-        {
-            if (angle < 0)
-            {
-                LeftHint.enabled = false;
-                RightHint.enabled = true;
+        //if (CoinRenderer.isVisible)
+        //{
+        //    LeftHint.enabled = false;
+        //    RightHint.enabled = false;
+        //}
+        //else
+        //{
+        //    if (angle < 0)
+        //    {
+        //        LeftHint.enabled = false;
+        //        RightHint.enabled = true;
 
-            }
-            else
-            {
-                RightHint.enabled = false;
-                LeftHint.enabled = true;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        RightHint.enabled = false;
+        //        LeftHint.enabled = true;
+        //    }
+        //}
 
-        staminaIndicator.fillAmount = Player.Stamina;
+        //staminaIndicator.fillAmount = Player.Stamina;
     }
 }

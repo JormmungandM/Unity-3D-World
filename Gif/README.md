@@ -1,3 +1,6 @@
+## Coin
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/Coin.gif)
+
 ## Control
 
 # w,a,d,s
@@ -13,3 +16,11 @@
 # Jump & RunJump
 ![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/Jump.gif)
 ![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/RunJump.gif)
+
+## Coin
+
+# Animation
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/CoinAnimation.gif)
+
+# Pick Up
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/CoinPickUp.gif)

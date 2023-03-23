@@ -34,7 +34,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {   
-        coinCount.text= CoinCount.ToString();
+        if (CoinCount <= 0)
+        {
+            coinCount.color = Color.red;
+        }
+        else
+        {
+            coinCount.color = Color.yellow;
+        }
+        coinCount.text = CoinCount.ToString();
+
         float factor = Speed * Time.deltaTime;
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) )
         {
