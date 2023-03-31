@@ -1,3 +1,11 @@
+## GamePlay
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/GamePlay.gif)
+
+## Menu
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/Menu.png)
+# Size
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/MenuSize.gif)
+
 ## Coin
 ![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/Coin.gif)
 
