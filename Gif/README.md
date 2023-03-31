@@ -1,4 +1,7 @@
 ## GamePlay
+# Stamina
+![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/GamePlay.gif)
+# Coin timer
 ![image](https://github.com/JormmungandM/Unity-3D-World/blob/main/Gif/GamePlay.gif)
 
 ## Menu
