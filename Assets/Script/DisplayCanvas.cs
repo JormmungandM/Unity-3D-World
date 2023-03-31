@@ -7,13 +7,14 @@ public class DisplayCanvas : MonoBehaviour
 {
     [SerializeField]
     private Player Player;
-    
+
     [SerializeField]
-    private GameObject Coin;
+    private Coin Coin;
 
     private TMPro.TextMeshProUGUI coinDistanceText;
     private Image arrowImage;
     private Image staminaIndicator;
+    private Image coinTimer;
     private TMPro.TextMeshProUGUI LeftHint;
     private TMPro.TextMeshProUGUI RightHint;
     private Renderer CoinRenderer;
@@ -21,15 +22,15 @@ public class DisplayCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CoinRenderer = Coin.GetComponentInChildren<Renderer>();
+
         coinDistanceText = GameObject.Find("CoinDistanceText").GetComponent<TMPro.TextMeshProUGUI>();
         arrowImage = GameObject.Find("Arrow").GetComponent<Image>();
         staminaIndicator = GameObject.Find("Front").GetComponent<Image>();
+        coinTimer = GameObject.Find("FrontTimer").GetComponent<Image>();
         LeftHint = GameObject.Find("LeftHint").GetComponent<TMPro.TextMeshProUGUI>();
         RightHint = GameObject.Find("RightHint").GetComponent<TMPro.TextMeshProUGUI>();
-
-        CoinRenderer = Coin.GetComponentInChildren<Renderer>();
         
-
 
     }
 
@@ -48,26 +49,27 @@ public class DisplayCanvas : MonoBehaviour
         float angle = Vector3.SignedAngle(c, Player.transform.forward, Vector3.up);
         arrowImage.transform.eulerAngles = new Vector3(0, 0, angle);
 
-        //if (CoinRenderer.isVisible)
-        //{
-        //    LeftHint.enabled = false;
-        //    RightHint.enabled = false;
-        //}
-        //else
-        //{
-        //    if (angle < 0)
-        //    {
-        //        LeftHint.enabled = false;
-        //        RightHint.enabled = true;
+        if (CoinRenderer.isVisible)
+        {
+            LeftHint.enabled = false;
+            RightHint.enabled = false;
+        }
+        else
+        {
+            if (angle < 0)
+            {
+                LeftHint.enabled = false;
+                RightHint.enabled = true;
 
-        //    }
-        //    else
-        //    {
-        //        RightHint.enabled = false;
-        //        LeftHint.enabled = true;
-        //    }
-        //}
+            }
+            else
+            {
+                RightHint.enabled = false;
+                LeftHint.enabled = true;
+            }
+        }
 
-        //staminaIndicator.fillAmount = Player.Stamina;
+        coinTimer.fillAmount = Coin.restTime;
+        staminaIndicator.fillAmount = Player.Stamina;
     }
 }
