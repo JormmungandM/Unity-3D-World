@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI coinCount;
 
+
     private CharacterController characterController;
     private Animator _animator;
 
@@ -102,7 +103,8 @@ public class Player : MonoBehaviour
 
         //characterController.SimpleMove(moveDirection);
         characterController.Move(moveDirection);
-        groundedPlayer = characterController.isGrounded;
+
+        //groundedPlayer = characterController.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
@@ -118,6 +120,28 @@ public class Player : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
+
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Terrain")
+        {
+            groundedPlayer = true;
+        }
+        Debug.Log("Enter" + other.name);
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.name == "Terrain")
+        {
+            groundedPlayer = false;
+        }
+        Debug.Log("Exit" + other.name);
+
+    }
+
 }
 

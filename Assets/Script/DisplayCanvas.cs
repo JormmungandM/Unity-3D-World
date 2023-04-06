@@ -14,7 +14,10 @@ public class DisplayCanvas : MonoBehaviour
     private TMPro.TextMeshProUGUI coinDistanceText;
     private Image arrowImage;
     private Image staminaIndicator;
+    private Image staminaBack;
     private Image coinTimer;
+    private Image coinTimerBg;
+    private TMPro.TextMeshProUGUI coinTimerTxt;
     private TMPro.TextMeshProUGUI LeftHint;
     private TMPro.TextMeshProUGUI RightHint;
     private Renderer CoinRenderer;
@@ -22,15 +25,17 @@ public class DisplayCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CoinRenderer = Coin.GetComponentInChildren<Renderer>();
-
         coinDistanceText = GameObject.Find("CoinDistanceText").GetComponent<TMPro.TextMeshProUGUI>();
         arrowImage = GameObject.Find("Arrow").GetComponent<Image>();
-        staminaIndicator = GameObject.Find("Front").GetComponent<Image>();
-        coinTimer = GameObject.Find("FrontTimer").GetComponent<Image>();
+        staminaIndicator = GameObject.Find("StaminaIndicatorFront").GetComponent<Image>();
+        staminaBack = GameObject.Find("StaminaIndicatorBg").GetComponent<Image>();
+        coinTimer = GameObject.Find("CoinTimerFrontTimer").GetComponent<Image>();
+        coinTimerBg = GameObject.Find("CoinTimerBg").GetComponent<Image>();
+        coinTimerTxt = GameObject.Find("CoinTimerCoinTimerText").GetComponent<TMPro.TextMeshProUGUI>();
         LeftHint = GameObject.Find("LeftHint").GetComponent<TMPro.TextMeshProUGUI>();
         RightHint = GameObject.Find("RightHint").GetComponent<TMPro.TextMeshProUGUI>();
-        
+
+        CoinRenderer = Coin.GetComponentInChildren<Renderer>();
 
     }
 
@@ -71,5 +76,20 @@ public class DisplayCanvas : MonoBehaviour
 
         coinTimer.fillAmount = Coin.restTime;
         staminaIndicator.fillAmount = Player.Stamina;
+    }
+
+    private void LateUpdate()
+    {
+        coinDistanceText.enabled = GameSettings.CoinDistanceEnabled;
+        staminaIndicator.enabled = GameSettings.StaminaEnabled;
+        staminaBack.enabled = GameSettings.StaminaEnabled;
+        arrowImage.enabled = GameSettings.DirectionHintsEnabled;
+        if (!GameSettings.DirectionHintsEnabled)
+        {
+            LeftHint.enabled = RightHint.enabled = false;
+        }
+        coinTimer.enabled = GameSettings.CoinTimeoutEnabled;
+        coinTimerBg.enabled = GameSettings.CoinTimeoutEnabled;
+        coinTimerTxt.enabled = GameSettings.CoinTimeoutEnabled;
     }
 }

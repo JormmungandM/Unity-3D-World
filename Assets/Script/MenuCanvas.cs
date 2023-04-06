@@ -43,8 +43,7 @@ public class MenuCanvas : MonoBehaviour
         GameObject.Find("InvZoomToggle").GetComponent<Toggle>().isOn = GameSettings.InverseWheelZoom;
         GameObject.Find("InvVerticalToggle").GetComponent<Toggle>().isOn = GameSettings.VerticalInverted;
         GameObject.Find("SensitivitySlider").GetComponent<Slider>().value = GameSettings.Sensitivity;
-        GameObject.Find("DifficultyValue").GetComponent<TMPro.TextMeshProUGUI>().text = GameSettings.Difficulty.ToString();
-        GameObject.Find("CoinPriceValue").GetComponent<TMPro.TextMeshProUGUI>().text = GameSettings.CoinValue.ToString();
+        UpdateDifficulty();
 
         GameObject.Find("GameTimerToggle").GetComponent<Toggle>().isOn = GameSettings.GameTimerEnabled;
         GameObject.Find("CoinDistanceToggle").GetComponent<Toggle>().isOn = GameSettings.CoinDistanceEnabled;
@@ -55,11 +54,29 @@ public class MenuCanvas : MonoBehaviour
         GameObject.Find("SoundsSlider").GetComponent<Slider>().value = GameSettings.EffectsVolume;
         GameObject.Find("MusicSlider").GetComponent<Slider>().value = GameSettings.MusicVolume;
         GameObject.Find("MuteAllToggle").GetComponent<Toggle>().isOn = GameSettings.AllSoundsDisabled;
+
+        var leaderBoard = GameObject.Find("BestBoardText").GetComponent<TMPro.TextMeshProUGUI>();
+        leaderBoard.text = "";
+        for (int i = 0; i < GameSettings.LeaderRecords.Count; i++)
+        {
+            var item = GameSettings.LeaderRecords[i];
+            leaderBoard.text += $"{i + 1}. {item.Name} - {item.Score}\n";
+        }
     }
     public void CloseButtonClick()
     {
         menuContent.SetActive(false);
         Time.timeScale = 1.0f;
+    }
+
+    public void DefaultsButtonClick()
+    {
+        if (EditorUtility.DisplayDialog("Really?", "Restore default for all settings?", "Yes", "No"))
+        {
+            GameSettings.RestoreDefaults();
+            ShowSettings();
+            UpdateDifficulty();
+        }
     }
     public void ExitButtonClick()
     {
@@ -69,14 +86,19 @@ public class MenuCanvas : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
         }
     }
+
+    private void UpdateDifficulty()
+    {
+        GameObject.Find("DifficultyValue").GetComponent<TMPro.TextMeshProUGUI>().text = GameSettings.Difficulty.ToString();
+        GameObject.Find("CoinPriceValue").GetComponent<TMPro.TextMeshProUGUI>().text = GameSettings.CoinValue.ToString();
+    }
+
     public void InverseWheelChanged(bool value)
     {
-        //Debug.Log(value);
         GameSettings.InverseWheelZoom = value;
     }
     public void InverseVerticalChanged(bool value)
     {
-        //Debug.Log(value);
         GameSettings.VerticalInverted = value;
     }
     public void SensitivityChanged(float value)
@@ -98,27 +120,27 @@ public class MenuCanvas : MonoBehaviour
     public void DisplayGameTimerChanged(bool value)
     {
         GameSettings.GameTimerEnabled = value;
-        ShowSettings();
+        UpdateDifficulty();
     }
     public void DisplayCoinDistanceChanged(bool value)
     {
         GameSettings.CoinDistanceEnabled = value;
-        ShowSettings();
+        UpdateDifficulty();
     }
     public void DisplayDirectionHintChanged(bool value)
     {
         GameSettings.DirectionHintsEnabled = value;
-        ShowSettings();
+        UpdateDifficulty();
     }
     public void DisplayDisapearTimerChanged(bool value)
     {
         GameSettings.CoinTimeoutEnabled = value;
-        ShowSettings();
+        UpdateDifficulty();
     }
     public void DisplayStaminaChanged(bool value)
     {
         GameSettings.StaminaEnabled = value;
-        ShowSettings();
+        UpdateDifficulty();
     }
 
 }

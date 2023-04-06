@@ -54,7 +54,6 @@ public class Coin : MonoBehaviour
         }
         else
         {
-            Debug.Log(other.gameObject.name);
             float coinRadius = transform.localScale.x;
             Respawn(coinRadius, coinRadius);
 
@@ -62,36 +61,6 @@ public class Coin : MonoBehaviour
     }
     public void Picked()
     {
-        //Vector3 newPosition;
-        //float distance;
-        //do
-        //{
-        //    newPosition = new Vector3(
-        //        this.transform.position.x + Random.Range(-spawnDistanceMax, spawnDistanceMax),
-        //        this.transform.position.y,
-        //        this.transform.position.z + Random.Range(-spawnDistanceMax, spawnDistanceMax));
-        //    distance = Vector3.Distance(newPosition, this.transform.position);
-        //} while (distance < spawnDistanceMin
-        //         || distance > spawnDistanceMax
-        //         || newPosition.x < 15   
-        //         || newPosition.z < 15       
-        //         || newPosition.x > 1000-15       
-        //         || newPosition.z > 1000-15 );
-
-        //float y = Terrain.activeTerrain.SampleHeight(newPosition) + coinOffsetY;
-        //newPosition.y = y;
-
-        /* Альтернативное решение - трассировка луча        
-        RaycastHit hit;
-        Vector3 raySource = newPosition + Vector3.up * 100;
-        Physics.Raycast(    // пускаем луч
-            raySource,      // из точки raySource
-            Vector3.down,   // в направлении вниз
-            out hit);       // возврат - по параметру
-        // особенность - луч отражается не только от Земли, но и от любой текстуры
-        Debug.Log((y - coinOffsetY) + " , " + hit.point.y); */
-
-        //this.transform.position = newPosition;
         Respawn(spawnDistanceMax, spawnDistanceMin);
         restTime = 1;
         _animator.SetBool("IsPicked", false);

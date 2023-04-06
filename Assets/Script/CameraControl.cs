@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
     private GameObject Player;
     private Vector3 rod;
+    private Vector3 rodBase;
 
     private float camAngleX;
     private float camAngleX0;
@@ -14,9 +16,7 @@ public class CameraControl : MonoBehaviour
     private const float HorSens = 1.0f;
     public Vector2 CamMinMax_Y = new Vector2(-40, 40);
 
-    private float zoomMax = 2.0f;
-    private float zoomMin = 0.1f;
-    private float zoomSens = 2.0f;
+
     private float zoom = 1.0f;
 
     void Start()
@@ -29,16 +29,12 @@ public class CameraControl : MonoBehaviour
     }
     private void Update()
     {
-        float mouseY = Input.GetAxis("Mouse Y") * VertSens * Time.timeScale;
-        float mouseX = Input.GetAxis("Mouse X") * HorSens * Time.timeScale;
+        float mouseY = Input.GetAxis("Mouse Y") * VertSens * Time.timeScale * (GameSettings.VerticalInverted ? 1 : -1) * (GameSettings.Sensitivity * 1.5f + 0.5f);
+        float mouseX = Input.GetAxis("Mouse X") * HorSens * Time.timeScale * (GameSettings.Sensitivity * 1.5f + 0.5f);
         camAngleY -= mouseY;
         camAngleX += mouseX;
 
-        Debug.Log(camAngleY); 
-        Debug.Log(camAngleX);
-
-        zoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSens;
-        zoom = Mathf.Clamp(zoom, zoomMin, zoomMax);
+        
     }
     void LateUpdate()
     {
@@ -46,10 +42,6 @@ public class CameraControl : MonoBehaviour
             + Quaternion.Euler(0, camAngleX - camAngleX0, 0) * rod * zoom;
 
         transform.eulerAngles = new Vector3(camAngleY+10, camAngleX, 0);
-
-
-
-
 
         if (Input.GetMouseButtonDown(0))
         {

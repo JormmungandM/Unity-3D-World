@@ -18,6 +18,8 @@ public class GameSettings : MonoBehaviour
     private static bool _directionHintsEnabled;
     private static bool _coinTimeoutEnabled;
     private static bool _staminaEnabled;
+    private static List<LeaderRecord> _leaderRecords;
+    public static List<LeaderRecord> LeaderRecords { get => _leaderRecords; }
     public static bool InverseWheelZoom
     {
         get => _inverseWheelZoom;
@@ -117,38 +119,68 @@ public class GameSettings : MonoBehaviour
             SaveSettings();
         }
     }
+
+    private static int EnableDisplays()
+    {
+        int displays = 0;
+        if (GameTimerEnabled) ++displays;
+        if (CoinDistanceEnabled) ++displays;
+        if (DirectionHintsEnabled) ++displays;
+        if (CoinTimeoutEnabled) ++displays;
+        if (StaminaEnabled) ++displays;
+        return displays;
+    }
+
     public static GameDifficulty Difficulty
     {
         get
         {
-            int displays = 0;
-            if (GameTimerEnabled) ++displays;
-            if (CoinDistanceEnabled) ++displays;
-            if (DirectionHintsEnabled) ++displays;
-            if (CoinTimeoutEnabled) ++displays;
-            if (StaminaEnabled) ++displays;
+            int displays = EnableDisplays();
             if (displays < 2) return GameDifficulty.High;
             if (displays < 4) return GameDifficulty.Normal;
             return GameDifficulty.Easy;
         }
 
     }
-    public static float CoinValue
+    public static int CoinValue
     {
         get
         {
-            return Difficulty switch
+            return EnableDisplays() switch
             {
-                GameDifficulty.High => 50,
-                GameDifficulty.Normal => 25,
+                0 => 50,
+                1 => 40,
+                2 => 30,
+                3 => 25,
+                4 => 15,
                 _ => 10,
             };
         }
 
     }
 
+    public static void RestoreDefaults()
+    {
+        _inverseWheelZoom = false;
+        _verticalInverted = false;
+        _sensitivity = 0.5f;
+        _effectsVolume = 0.5f;
+        _musicVolume = 0.5f;
+        _allSoundsDisabled = false;
+        _gameTimerEnabled = true;
+        _coinDistanceEnabled = true;
+        _directionHintsEnabled = true;
+        _coinTimeoutEnabled = true;
+        _staminaEnabled = true;
+    }
+
     private static void SaveSettings()
     {
+        //_leaderRecords= new List<LeaderRecord>();
+        //_leaderRecords.Add(new() { Name = "Player2",Score = 200});
+        //_leaderRecords.Add(new() { Name = "Player1", Score = 250 });
+        //_leaderRecords.Add(new() { Name = "Player3", Score = 190 });
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.Append(_inverseWheelZoom).Append("\n")
             .Append(_verticalInverted).Append("\n")
@@ -162,6 +194,11 @@ public class GameSettings : MonoBehaviour
             .Append(_musicVolume).Append("\n")
             .Append(_allSoundsDisabled).Append("\n");
 
+        foreach (var recod in _leaderRecords)
+        {
+            stringBuilder.Append(recod.Name).Append(";").Append(recod.Score).Append('\n');
+        }
+
         System.IO.File.WriteAllText(_settingsFilename, stringBuilder.ToString());
     }
 
@@ -170,7 +207,7 @@ public class GameSettings : MonoBehaviour
         try
         {
             string content = System.IO.File.ReadAllText(_settingsFilename);
-            string[] lines = content.Split('\n');
+            string[] lines = content.Split('\n', System.StringSplitOptions.RemoveEmptyEntries);
             _inverseWheelZoom = Convert.ToBoolean(lines[0]);
             _verticalInverted = Convert.ToBoolean(lines[1]);
             _sensitivity = Convert.ToSingle(lines[2]);
@@ -182,6 +219,19 @@ public class GameSettings : MonoBehaviour
             _effectsVolume = Convert.ToSingle(lines[8]);
             _musicVolume = Convert.ToSingle(lines[9]);
             _allSoundsDisabled = Convert.ToBoolean(lines[10]);
+
+            _leaderRecords = new();
+            for (int i = 11; i < lines.Length; i++)
+            {
+                try
+                {
+                    _leaderRecords.Add(LeaderRecord.Parse(lines[i]));
+                }
+                catch (System.ArgumentException e)
+                {
+                    Debug.Log(e.Message);
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -196,10 +246,27 @@ public class GameSettings : MonoBehaviour
         High = 2
     }
 
-    private class LeaderRecord
+    public class LeaderRecord
     {
         public string Name { get; set; }
         public int Score { get; set; }
+
+        public static LeaderRecord Parse(string text)
+        {
+            string[] parts = text.Split(';', 2);
+            try
+            {
+                return new()
+                {
+                    Name = parts[0],
+                    Score = int.Parse(parts[1])
+                };
+            }
+            catch
+            {
+                throw new System.ArgumentException($"Invalid string {text}");
+            }
+        }
     }
 
     void Start()
