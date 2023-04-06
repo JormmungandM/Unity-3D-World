@@ -176,10 +176,6 @@ public class GameSettings : MonoBehaviour
 
     private static void SaveSettings()
     {
-        //_leaderRecords= new List<LeaderRecord>();
-        //_leaderRecords.Add(new() { Name = "Player2",Score = 200});
-        //_leaderRecords.Add(new() { Name = "Player1", Score = 250 });
-        //_leaderRecords.Add(new() { Name = "Player3", Score = 190 });
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.Append(_inverseWheelZoom).Append("\n")

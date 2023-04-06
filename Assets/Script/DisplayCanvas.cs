@@ -18,6 +18,7 @@ public class DisplayCanvas : MonoBehaviour
     private Image coinTimer;
     private Image coinTimerBg;
     private TMPro.TextMeshProUGUI coinTimerTxt;
+    private TMPro.TextMeshProUGUI stamitaText;
     private TMPro.TextMeshProUGUI LeftHint;
     private TMPro.TextMeshProUGUI RightHint;
     private Renderer CoinRenderer;
@@ -29,6 +30,7 @@ public class DisplayCanvas : MonoBehaviour
         arrowImage = GameObject.Find("Arrow").GetComponent<Image>();
         staminaIndicator = GameObject.Find("StaminaIndicatorFront").GetComponent<Image>();
         staminaBack = GameObject.Find("StaminaIndicatorBg").GetComponent<Image>();
+        stamitaText = GameObject.Find("StaminaIndicatorEnergy").GetComponent<TMPro.TextMeshProUGUI>();
         coinTimer = GameObject.Find("CoinTimerFrontTimer").GetComponent<Image>();
         coinTimerBg = GameObject.Find("CoinTimerBg").GetComponent<Image>();
         coinTimerTxt = GameObject.Find("CoinTimerCoinTimerText").GetComponent<TMPro.TextMeshProUGUI>();
@@ -83,6 +85,7 @@ public class DisplayCanvas : MonoBehaviour
         coinDistanceText.enabled = GameSettings.CoinDistanceEnabled;
         staminaIndicator.enabled = GameSettings.StaminaEnabled;
         staminaBack.enabled = GameSettings.StaminaEnabled;
+        stamitaText.enabled = GameSettings.StaminaEnabled;
         arrowImage.enabled = GameSettings.DirectionHintsEnabled;
         if (!GameSettings.DirectionHintsEnabled)
         {

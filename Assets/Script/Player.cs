@@ -130,7 +130,6 @@ public class Player : MonoBehaviour
             groundedPlayer = true;
         }
         Debug.Log("Enter" + other.name);
-
     }
 
     private void OnTriggerExit(Collider other)

@@ -1,11 +1,11 @@
 False
 True
 0,4668907
-True
-True
-True
-True
-True
+False
+False
+False
+False
+False
 1
 0,4668907
 True
