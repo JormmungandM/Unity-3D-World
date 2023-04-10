@@ -4,10 +4,10 @@ True
 True
 True
 True
+False
 True
-True
-1
-0,4668907
+0,06570195
+0,3355884
 True
 Player2;250
 Player1;200

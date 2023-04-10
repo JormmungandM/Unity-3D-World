@@ -64,6 +64,7 @@ public class DayNightSystem : MonoBehaviour
         {
             RenderSettings.skybox = daySkybox;
         }
+
         float k = Mathf.Abs(Mathf.Cos(dayPhase * 2 * Mathf.PI) * 0.9f) + 0.1f;
         RenderSettings.skybox.SetFloat("_Exposure" , k);
         RenderSettings.ambientIntensity = (dayPhase > 0.25f && dayPhase < 0.75) ? k / 4f : k;
